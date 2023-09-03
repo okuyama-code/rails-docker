@@ -8,3 +8,4 @@ RUN apt-get update -qq && apt-get install -y \
 WORKDIR /rails-docker
 COPY Gemfile Gemfile.lock /rails-docker/
 RUN bundle install
+CMD rails s -p 3000 -b '0.0.0.0'
