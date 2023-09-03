@@ -1,24 +1,32 @@
-# README
+# 本ソースコードをDocker化するための手順
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 1.以下のURLからテンプレートを自分のリポジトリにも作る
+https://github.com/ihatov08/rails7_docker_template
 
-Things you may want to cover:
+Use this templateボタンを押しでCreate a new repositoryを選択し、自分のアカウント配下にリポジトリを作成。rails-dockerという名前のリポジトリにする。
 
-* Ruby version
+## 2. git cloneしてテンプレートを確認
+クローンしたいディレクトリに移動
+```
+cd ~/dev/happiness/ && ls
+```
+```
+git clone https://github.com/okuyama-code/rails-docker.git
+```
+```
+ cd rails-docker/
+ code .
+```
+サーバーを起動する(自分の場合bashではなくpawershell)
+```
+bundle install
+rails s
+```
+```
+ActiveRecord::ConnectionNotEstablished
+connection to server at "localhost" (::1), port 5432 failed: fe_sendauth: no password supplied
+```
+このエラーが出るということはサーバーがたてられている。
 
-* System dependencies
+## 3.docker化していく
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
