@@ -28,5 +28,9 @@ connection to server at "localhost" (::1), port 5432 failed: fe_sendauth: no pas
 ```
 このエラーが出るということはサーバーがたてられている。
 
+## dokerブランチの作成し移動
+```
+git checkout -b docker
+```
 ## 3.docker化していく
 
