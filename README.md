@@ -1,5 +1,8 @@
 # 本ソースコードをDocker化するための手順
 https://github.com/okuyama-code/rails-docker
+```
+~/dev/happiness/rails-docker
+```
 ## 1.以下のURLからテンプレートを自分のリポジトリにも作る
 https://github.com/ihatov08/rails7_docker_template
 
