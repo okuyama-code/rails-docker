@@ -16,7 +16,7 @@ services:
     stdin_open: true
     depends_on:
       - db
-    
+  # linksはいらない
 
   db:
     image: postgres:12
