@@ -1,8 +1,9 @@
 # 本ソースコードをDocker化するための手順
 https://github.com/okuyama-code/rails-docker
 ```
-~/dev/happiness/rails-docker
+cd ~/dev/happiness/rails-docker && code .
 ```
+
 ## 1.以下のURLからテンプレートを自分のリポジトリにも作る
 https://github.com/ihatov08/rails7_docker_template
 
@@ -141,6 +142,45 @@ rails s -p 3000 -b '0.0.0.0'
 
 ![Alt text](image.png)
 
+## rails sができないときの対処法その2　docker-compose.ymlにcommandを追記
+この場合はDockefileのCMD rails s -p 3000 -b '0.0.0.0'いらない。
+```Dockerfile
+version: "3.9"
+
+# Docker Composeで使用するボリュームを定義します。
+volumes:
+  db-data:  # db-dataという名前のボリュームを作成します。
+
+# サービスを定義します。
+services:
+
+  # Webサービス
+  web:
+    build: .  # カレントディレクトリからのビルドを指定します。
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'  # Railsサーバーの起動コマンドを指定します。
+    ports:
+      - '3000:3000'  # ホストマシンのポート3000とコンテナのポート3000をマッピングします。
+    volumes:
+      - '.:/rails-docker'  # ホストマシンのカレントディレクトリをコンテナの/rails-dockerにマウントします。
+    environment:
+      - 'DATABASE_PASSWORD=postgres'  # データベースのパスワードを環境変数として設定します。
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db  # dbサービスが起動するまで待機します。
+
+  # データベースサービス
+  db:
+    image: postgres:12  # PostgreSQL 12の公式イメージを使用します。
+    volumes:
+      - 'db-data:/var/lib/postgresql/data'  # データベースのデータを永続化するためのボリュームをマウントします。
+    environment:
+      - 'POSTGRES_USER=postgres'  # PostgreSQLのユーザー名を設定します。
+      - 'POSTGRES_PASSWORD=postgres'  # PostgreSQLのパスワードを設定します
+
+```
+### 注意
+docker-compose.ymlが正解。Docker-compose.ymlではgithub actionsでエラーになる
 
 ### 参考
 
